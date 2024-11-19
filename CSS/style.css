@@ -1,0 +1,544 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'Paperlogy-8ExtraBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Paperlogy-8ExtraBold';
+    scroll-behavior: smooth; /* 부드러운 스크롤 */
+    max-width: 1920px;
+    margin: auto;
+}
+
+/* 메인에 스크롤 스냅 기능 추가 */
+main {
+    display: flex;
+    flex-direction: column;
+    scroll-snap-type: y mandatory; /* 세로 스크롤 스냅 */
+    overflow-y: scroll; /* 세로 스크롤 가능 */
+    height: 100vh;
+}
+
+/* 각 섹션의 높이가 화면에 꽉 차도록 설정 */
+section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+    scroll-snap-align: start; /* 섹션의 시작 부분에 스냅 */
+    width: 100%;
+}
+
+/* 배경색과 각 섹션의 기본 스타일 */
+#TaeSan {
+    background-color: lightblue;
+    display: none;
+}
+
+#JeongSoo {
+    background-color: lightgreen;
+    display: none;
+}
+
+#MinSu {
+    background-color: black;
+}
+
+#SeoYeon {
+    background-color: lightgoldenrodyellow;
+}
+
+#TaeSans {
+    background-color: lightgray;
+}
+
+/* 슬라이드 관련 스타일 */
+#layout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url(../images/bg.jpg) repeat;
+    background-size: 100% 100%; 
+}
+
+/**********************header**************************/
+
+#header {
+    width: calc(100%/5);
+    height: 5%;
+    position: relative;
+    position: absolute;
+    top: 20%;
+}
+
+#carName {
+    position: absolute;
+    display: flex;
+    width: 400%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#carName h2 {
+    width: 100%;
+    font-size: 1.5rem;
+    display: flex;            /* Flexbox 사용 */
+    justify-content: center;  /* 가로 가운데 정렬 */
+    align-items: flex-end;    /* 세로 아래 정렬 */
+    color: lightgray;
+    cursor: pointer;
+    transition: all 2.5s;
+    z-index: 1;
+}
+
+#carName .select {
+    font-size: 2.5rem;
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 7px;
+}
+
+/******************************slideArea***********************************/
+
+#slideArea {
+    position: absolute;
+    width: 60%;    
+}
+
+#slide {
+    display: flex;
+    width: 400%;
+}
+
+.car {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 2.5s;
+    width: 100%;
+    filter: brightness(30%);
+}
+
+#AVANTE {
+    filter: brightness(100%);
+}
+
+.car img {
+    display: inline-block;
+    
+}
+
+.car img:nth-of-type(1) {
+    /* border: 1px solid red; */
+    width: 100%;
+}
+
+.left_tier, .right_tier {
+    position: absolute;
+}
+
+#AVANTE .left_tier {
+    top: 54%;
+    left: 16%;
+    width: 12%;
+}
+
+#AVANTE .right_tier {
+    top: 54.5%;
+    right: 19.5%;
+    width: 12%;
+}
+
+#IONIQ5 .left_tier {
+    top: 52%;
+    left: 14%;
+    width: 14.5%;
+}
+
+#IONIQ5 .right_tier {
+    top: 52%;
+    right: 12%;
+    width: 14.5%;
+}
+
+#SONATA .left_tier {
+    top: 52%;
+    left: 14.5%;
+    width: 13.3%;
+}
+
+#SONATA .right_tier {
+    top: 52%;
+    right: 18.7%;
+    width: 13.3%;
+}
+
+#TUCSAN .left_tier {
+    top: 56%;
+    left: 15.5%;
+    width: 14%;
+}
+
+#TUCSAN .right_tier {
+    top: 56%;
+    right: 17.3%;
+    width: 14%;
+}
+
+
+/* 슬라이드가 움직일 때 애니메이션을 적용 */
+.clockwise_rotating {
+    animation: clockwise-rotate-wheel 2.5s infinite;
+}
+
+.counterclockwise_rotating {
+    animation: counterclockwise-rotate-wheel 2.5s infinite;
+}
+
+/* 바퀴 회전 애니메이션 */
+@keyframes clockwise-rotate-wheel {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes counterclockwise-rotate-wheel {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+/******************************carPrice***********************************/
+#carPrice {
+    position: absolute;
+    top: 75%;
+    width: 50%;
+    height: 50px;       /* #rollingNumber의 font-size랑 맞춰야 롤링넘버 잘 보임 */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(20px);
+}
+
+#carPrice> div:first-of-type {
+    flex: 1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 100%;
+    margin-right: 5%;
+}
+
+#price {
+    flex: 1;
+    display: flex;
+    height: 100%;
+}
+
+#price .roll-text {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#rollingNumber {
+    height: 100%;
+    display: flex;
+    margin-right: 3%;
+    font-size: 40px;        /* #carPrice의 height랑 맞춰야 롤링넘버 잘 보임 */
+    overflow: hidden;
+}
+
+#rollingNumber .roll-slide {
+    display: flex;
+    flex-direction: column-reverse;
+    transition: transform 2.5s ease;
+    animation: rolling 2.5s both;
+}
+
+#rollingNumber .roll-slide:nth-of-type(1) {
+    transform: translateY(200%);
+}
+
+#rollingNumber .roll-slide:nth-of-type(3) {
+    transform: translateY(1000%);
+}
+
+#rollingNumber .roll-slide:nth-of-type(4) {
+    transform: translateY(1500%);
+}
+
+#rollingNumber .roll-slide:nth-of-type(5) {
+    transform: translateY(2200%);
+}
+
+#rollingNumber .roll-num {
+    height: 100%;
+}
+
+@keyframes rolling {
+    to {transform: translateY(0);}
+}
+
+
+/******************************footer***********************************/
+
+#footer {
+    position: relative;
+    position: absolute;
+    top: 85%;
+    width: 50%;
+}
+
+#footer .carInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: lightgray;
+    font-size: 1.2rem;
+    /* transition: all 2s; */
+}
+
+#footer .carInfo p {
+    font-size: 2rem;
+    color: white;
+    /* font-weight: bold; */
+}
+
+#AVANTE_carInfo {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+
+#IONIQ5_carInfo {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+#SONATA_carInfo{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+#TUCSAN_carInfo{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+
+
+/*************************circle**************************/
+
+#circle {
+    position: absolute;
+    bottom: 3%;
+    display: flex;
+}
+
+#circle div {
+    width: 100px;
+    height: 2px;
+    border-radius: 20%;
+    background: white;
+    margin: 5px;
+}
+
+#circle .red {
+    background: red;
+}
+
+/*************************arrow**************************/
+#arrow {
+    position: absolute;
+    top: 50%;
+    width: 90%;
+    display: flex;
+
+    justify-content: space-between;
+}
+
+/* 버튼 스타일 */
+button.material-symbols-outlined {
+    background-color: #f0f0f0;    /* 밝은 배경 색상 */
+    border: none;                 /* 테두리 제거 */
+    border-radius: 50%;           /* 동그란 버튼 */
+    font-size: 2rem;              /* 아이콘 크기 */
+    cursor: pointer;              /* 마우스 커서 */
+    padding: 10px;                /* 버튼 크기 조정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+    transition: transform 0.2s, background-color 0.3s; /* 애니메이션 효과 */
+    color: #333;                  /* 아이콘 색상 */
+    display: inline-flex; /* 컨텐츠를 정렬하기 위해 사용 */
+}
+
+/* 버튼 호버 효과 */
+button.material-symbols-outlined:hover {
+    background-color: #e0e0e0;    /* 호버 시 밝은 회색 */
+    transform: scale(1.1);        /* 호버 시 크기 증가 */
+}
+
+/* 버튼 클릭 효과 */
+button.material-symbols-outlined:active {
+    background-color: #d0d0d0;    /* 클릭 시 더 어두운 회색 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 감소 */
+    transform: scale(0.95);       /* 클릭 시 크기 감소 */
+}
+
+/* 컨텐츠만 X축으로 이동시키기 */
+button.material-symbols-outlined span {
+    display: inline-block;
+    transform: translateX(5px); /* X축으로 10px 이동 */
+}
+
+
+/*************************footer**************************/
+footer {
+    display: none;
+}
+
+
+
+
+
+
+/* 반응형 */
+
+/* 아이패드 pro기준 */
+@media (max-width: 1024px) {     
+    section {
+        min-height: 800px;
+    }
+    /*************************header**************************/
+    #header {
+        width: calc(100%/4);
+    }
+    #carName .select {
+        text-underline-offset: 5px;
+    }
+    /*************************slideArea**************************/
+    #slideArea {
+        width: 90%;        
+    }
+    /*************************carPrice**************************/
+    #carPrice {
+        width: 60%;
+        top: 72%;
+    }
+    /*************************footer**************************/
+    #footer {
+        top: 83%;
+        width: 90%;
+    }
+    /*************************circle**************************/
+    #circle div {
+        width: 90px;
+    }
+    /*************************arrow**************************/
+    #arrow {
+        width: 95%;
+    }
+    button.material-symbols-outlined {
+        font-size: 2rem;
+        padding: 5px;
+    }
+    button.material-symbols-outlined span {
+        transform: translateX(5px);
+    }
+}
+
+
+/* 아이폰 14 pro max 기준 */
+@media (max-width: 430px) {     
+    section {
+        min-height: 450px;
+    }
+    /*************************header**************************/
+    #header {
+        width: calc(100%/3);
+    }
+    #carName h2 {
+        font-size: 0.7rem;
+    }
+    #carName .select {
+        font-size: 1.5rem;
+        text-underline-offset: 5px;
+    }
+    /*************************slideArea**************************/
+    #slideArea {
+        width: 95%;        
+    }
+    /*************************carPrice**************************/
+    #carPrice {
+        width: 80%;
+        font-size: 17px;
+        height: 30px;
+        top: 70%;
+    }
+    #rollingNumber {
+        font-size: 24px;
+    }
+    /*************************footer**************************/
+    #footer {
+        top: 83%;
+        width: 90%;
+    }
+    #footer .carInfo {
+        font-size: 0.8rem;
+    }
+    #footer .carInfo p {
+        font-size: 1rem;
+    }
+    /*************************circle**************************/
+    #circle div {
+        width: 50px;
+    }
+    /*************************arrow**************************/
+    #arrow {
+        width: 98%;
+    }
+    button.material-symbols-outlined {
+        font-size: 1rem;
+        padding: 3px;
+    }
+    button.material-symbols-outlined span {
+        transform: translateX(3px);
+    }
+}
+
+
+
+/* 반응형만 하면 댐 */
+
+
